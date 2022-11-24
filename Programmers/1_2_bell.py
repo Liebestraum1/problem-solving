@@ -1,5 +1,4 @@
 #Hash
-#
 from itertools import accumulate
 
 def solution(bell):
