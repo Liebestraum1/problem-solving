@@ -1,3 +1,4 @@
+#Programmers lv.1 햄버거 만들기
 def solution(ingredient):
     stack = [0, 0, 0, 0]
     hamburger = 0
