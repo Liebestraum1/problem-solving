@@ -1,12 +1,11 @@
-def solution(dots):
+#Programmers lv.0, 연속된 수의 합
+def solution(lines):
+    def length(line1, line2):
+        a = min(line1[1], line2[1]) - max(line1[0], line2[0])
+        return a if a > 0 else 0
     
-    def gradient(dot1, dot2):
-        return (dot1[1] - dot2[1]) / (dot1[0] - dot2[0])
-    
-    for i in range(1, len(dots)):
-        print(dots[0],dots[i])
-        print(gradient(dots[0], dots[i]), gradient((dots[1:i] + dots[i+1:])[0], (dots[1:i] + dots[i+1:])[1]))
-        if gradient(dots[0], dots[i]) == gradient((dots[1:i] + dots[i+1:])[0], (dots[1:i] + dots[i+1:])[1]):
-            return 1
-    
-    return 0
+    if  min(lines, key = lambda x : x[1])[1] - max(lines, key = lambda x : x[0])[0] <= 0:
+        a = 0
+    else:
+        a = min(lines, key = lambda x : x[1])[1] - max(lines, key = lambda x : x[0])[0]
+    return length(lines[0], lines[1]) + length(lines[0], lines[2]) + length(lines[1], lines[2]) - a * 2
