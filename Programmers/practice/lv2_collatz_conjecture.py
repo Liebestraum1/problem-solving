@@ -1,18 +1,26 @@
-#Programmers lv.2, 우박수열 정적분
 def solution(k, ranges):
     height = [k]
-    result = []
+    answer = []
     while k != 1:
         if k % 2 == 0:
             k = k // 2
-            height.append(k)
         else:
             k = k * 3 + 1
-            height.append(k) #수열 구하는 부분
-
-
-    def integral(l, area=0.0): #ranges를 받는다
-        if len(l) == 1:
-            return area
-        return integral(l[1:], area + (l[0] + l[1]) * 0.5)
-#ing
+        height.append(k)
+    
+    def integral(func):
+        area = 0.0
+        for i in range(len(func)-1):
+            area += (func[i] + func[i+1]) / 2
+        return area
+    
+    for i, (x1, x2) in enumerate(ranges):
+        ranges[i] = (x1, len(height) + x2)
+    
+    for x1, x2 in ranges:
+        if x1 >= x2:
+            answer.append(-1.0)
+        else:
+            answer.append(integral(height[x1:x2]))
+    
+    return answer
