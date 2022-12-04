@@ -1,3 +1,4 @@
+#Programmers lv.2, 우박수열 정적분
 def solution(k, ranges):
     height = [k]
     answer = []
