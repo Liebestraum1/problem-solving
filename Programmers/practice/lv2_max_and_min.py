@@ -20,5 +20,3 @@ def solution(tickets):
         visited.append(node)
 
     return visited
-
-print(solution([["ICN", "ICN"], ["ICN", "BCD"], ["BCD", "BCD"]]))
