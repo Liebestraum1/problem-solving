@@ -12,11 +12,11 @@ def solution(line):
     min_x = -min(node, key = lambda x: x[0])[0]
     min_y = -min(node, key = lambda x: x[1])[1]
     node = [[int(x + min_x), int(y + min_y)] for x, y in node]
-    row = (max(node, key = lambda x: x[0])[0]+1)
-    col = (max(node, key = lambda x: x[1])[1]+1)
+    base = (max(node, key = lambda x: x[0])[0]+1) #최대 x좌표
+    height = (max(node, key = lambda x: x[1])[1]+1) #최대 y좌표
     
-    answer = [['.' for x in range(row)] for y in range(col)]
-    for x, y in node:
-        answer[y][x] = '*'
+    answer = [['.' for x in range(base)] for y in range(height)]
+    for base, height in node:
+        answer[height][base] = '*'
     answer = [''.join(x) for x in answer]
     return answer[::-1]
