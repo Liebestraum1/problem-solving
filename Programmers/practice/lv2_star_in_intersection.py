@@ -20,7 +20,3 @@ def solution(line):
         answer[y][x] = '*'
     answer = [''.join(x) for x in answer]
     return answer[::-1]
-
-line = [[2, -1, 4], [-2, -1, 4], [0, -1, 1], [5, -8, -12], [5, 8, 12]]
-print(solution(line))
-
