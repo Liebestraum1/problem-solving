@@ -1,15 +1,24 @@
-#구현 2. 시각
-n = int(input())
-count = 0
+#행위치 1 ~ 8
+#열위치 a ~ h
+data = input()
+result = 0
+l = [ord(data[0]) - 96, int(data[1])]
 
-# 내 풀이
-# for i in range((n+1)* 60 * 60):
-#     if '3' in str(i // 3600).zfill(2) + str(i // 60 % 60).zfill(2) + str(i % 60).zfill(2):
-#         count += 1
-        
-for i in range(n + 1):
-    for j in range(60):
-        for k in range(60):
-            if '3' in str(i) + str(j) + str(k):
-                count += 1
-print(count)
+if l[0] + 2 < 9 and l[1] + 1 < 9:
+    result += 1
+if l[0] + 1 < 9 and l[1] + 2 < 9:
+    result += 1
+if l[0] - 2 > 0 and l[1] - 1 > 0:
+    result += 1
+if l[0] - 1 > 0 and l[1] - 2 > 0:
+    result += 1
+if l[0] + 2 < 9 and l[1] - 1 > 0:
+    result += 1
+if l[0] + 1 < 9 and l[1] - 2 > 0:
+    result += 1
+if l[0] - 2 > 0 and l[1] + 1 < 9:
+    result += 1
+if l[0] - 1 > 0 and l[1] + 2 < 9:
+    result += 1
+
+print(result)
