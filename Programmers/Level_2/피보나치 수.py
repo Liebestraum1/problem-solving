@@ -1,4 +1,4 @@
-def solution(n):
+def solution(n): #반복문
     f_0, f_1 = 0, 1
     
     for _ in range(n-1):
