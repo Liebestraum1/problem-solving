@@ -5,7 +5,11 @@ answer = []
 
 def sudoku(arr, row, col):
     if row == 9:
-        answer.append(int(''.join([str(i) for j in arr for i in j])))
+        for r in arr:
+            for c in r:
+                print(c, end='')
+            print('')
+        exit()
     else:
         if arr[row][col] != 0:
             sudoku(arr, row + (col+1)//9, (col+1)%9)
@@ -17,6 +21,3 @@ def sudoku(arr, row, col):
                     sudoku(arr, row + (col+1)//9, (col+1)%9)
                     arr[row][col] = 0
 sudoku(arr, 0, 0)
-result = str(min(answer))
-for i in range(0, 81, 9):
-    print(result[i:i+9])
