@@ -1,4 +1,3 @@
-#다시 풀어볼 것(DP로)
 import sys
 
 input = sys.stdin.readline
