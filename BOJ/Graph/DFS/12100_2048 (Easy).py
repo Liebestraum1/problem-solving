@@ -4,49 +4,66 @@ answer = []
 dr = ["UP", "DOWN", "RIGHT", "LEFT"]
 
 def moving(direction, board):
+    nboard = [[0 for col in range(n)] for row in range(n)]
     if direction == "UP":
         for col in range(n):
-            for row in range(n-1, 0, -1):
-                if board[row][col] != 0 and board[row-1][col] == 0:
-                    board[row][col], board[row-1][col] = board[row-1][col], board[row][col]
-                elif board[row][col] != 0 and board[row][col] == board[row-1][col]:
-                    board[row][col], board[row-1][col] = board[row][col] * 2, 0
-
+            idx, merged = -1, False
+            for row in range(n):
+                if board[row][col] != 0:
+                    if board[row][col] == nboard[idx][col] and not merged:
+                        merged = True
+                        nboard[idx][col] += board[row][col]
+                    else:
+                        merged = False
+                        idx += 1
+                        nboard[idx][col] += board[row][col]
     if direction == "DOWN":
         for col in range(n):
-            for row in range(n-1):
-                if board[row][col] != 0 and board[row+1][col] == 0:
-                    board[row][col], board[row+1][col] = board[row+1][col], board[row][col]
-                elif board[row][col] != 0 and board[row][col] == board[row+1][col]:
-                    board[row][col], board[row+1][col] = board[row][col] * 2, 0
-    if direction == 'LEFT':
+            idx, merged = 0, False
+            for row in range(n-1, -1, -1):
+                if board[row][col] != 0:
+                    if board[row][col] == nboard[idx][col] and not merged:
+                        merged = True
+                        nboard[idx][col] += board[row][col]
+                    else:
+                        merged = False
+                        idx -= 1
+                        nboard[idx][col] += board[row][col]
+    if direction == "LEFT":
         for row in range(n):
-            for col in range(n-1, 0, -1):
-                if board[row][col] != 0 and board[row][col-1] == 0:
-                    board[row][col], board[row][col-1] = board[row][col-1], board[row][col]
-                elif board[row][col] != 0 and board[row][col] == board[row][col-1]:
-                    board[row][col], board[row][col-1] = board[row][col] * 2, 0
-    if direction == 'RIGHT':
+            idx, merged = -1, False
+            for col in range(n):
+                if board[row][col] != 0:
+                    if board[row][col] == nboard[row][idx] and not merged:
+                        merged = True
+                        nboard[row][idx] += board[row][col]
+                    else:
+                        merged = False
+                        idx += 1
+                        nboard[row][idx] += board[row][col]
+    if direction == "RIGHT":
         for row in range(n):
-            for col in range(n-1):
-                if board[row][col] != 0 and board[row][col-1] == 0:
-                    board[row][col], board[row][col+1] = board[row][col+1], board[row][col]
-                elif board[row][col] != 0 and board[row][col] == board[row][col+1]:
-                    board[row][col], board[row][col+1] = board[row][col] * 2, 0
-    return board
+            idx, merged = 0, False
+            for col in range(n-1, -1, -1):
+                if board[row][col] != 0:
+                    if board[row][col] == nboard[row][idx] and not merged:
+                        merged = True
+                        nboard[row][idx] += board[row][col]
+                    else:
+                        merged = False
+                        idx -= 1
+                        nboard[row][idx] += board[row][col]
+    return nboard
 
-def dfs(board, depth, a):
-    if depth == 1:
+def dfs(board, depth):
+    if depth == 5:
         answer.append(max(map(max, board)))
-        print(a)
-        print(*board, sep='\n')
-        print('절취선')
         return
     for d in dr:
-        dfs(moving(d, board), depth+1, d)
+        dfs(moving(d, board), depth+1)
 
 for row in range(n):
     board.append(list(map(int, input().split())))
 
-dfs(board, 0, 'UP')
+dfs(board, 0)
 print(max(answer))
