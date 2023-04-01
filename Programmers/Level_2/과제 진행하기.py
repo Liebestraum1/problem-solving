@@ -26,6 +26,7 @@ def solution(plans):
         name, start, time = nn, ns, nt
     
     remain.append([name, start])
+    
     while remain:
         answer.append(remain.pop()[0])
     
