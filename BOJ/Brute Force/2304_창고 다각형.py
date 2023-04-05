@@ -2,18 +2,29 @@ n = int(input())
 
 high_l, high_h = 0, 0 #위치, 높이
 data = []
-stack = 0
+stack = []
 answer = 0
 
 for _ in range(n):
     data.append(tuple(map(int, input().split())))
 
+data.sort(key = lambda x: x[0])
 
-for l, h in enumerate(sorted(data, key = lambda x: x[0])):
-    if h > high_h:
-        answer += (l - high_l) * h
-        l, h = high_l, high_h
-    elif idx == n-1:
-        answer += max(data[l:]) * (n - l - 1)
+for l, h in data:
+    if h >= high_h:
+        answer += (l - high_l) * high_h
+        high_l, high_h = l, h
+        stack = []
+    else:
+        stack.append((data[-1][0] - l, h))
 
-print(answer)
+stack = stack[::-1]
+stack.append((data[-1][0] - high_l, high_h))
+high_l, high_h = -1, 0
+
+for l, h in stack:
+    if h >= high_h:
+        answer += (l - high_l) * high_h
+        high_l, high_h = l, h
+        
+print(answer + high_h)
