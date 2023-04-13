@@ -1,16 +1,18 @@
 sound = list(input())
-stack = []
-duck = ['q', 'u', 'a', 'c', 'k'] #q, u, a, c, k
-answer, idx = 0, 0
+dic = {'q': 0, 'u' : 1, 'a' : 2, 'c' : 3, 'k' : 4}
+duck = [0, 0, 0, 0, 0] #각각 q, u, a, c를 나타낸다
+answer, cnt = 0, 0
 
-while len(sound) >= 5 and sound[0] == 'q':
-    answer += 1
-    stack = []
-    for i in range(len(sound)):
-        if sound[i] == duck[idx]:
-            idx = (idx + 1) % 5
-        else:
-            stack.append(sound[i])
-    sound = stack
+for s in sound:
+    duck[dic[s]] += 1
+    if s == 'q':
+        cnt += 1
+    if s != 'q':
+        duck[dic[s] - 1] -= 1
+        if duck[dic[s] - 1] < 0:
+            break
+    if s == 'k':
+        cnt -= 1
+    answer = max(answer, cnt)
 
-print(-1 if sound else answer)
+print(-1 if (-1 in duck or sum(duck[:4]) != 0) else answer)
