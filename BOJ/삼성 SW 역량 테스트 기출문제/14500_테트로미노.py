@@ -40,4 +40,4 @@ def brute_force():
                     answer = max(answer, board[row][col+1] + board[row][col+2] + board[row+1][col] + board[row+1][col+1])
         return answer
 
-def dfs()
+# def dfs()
