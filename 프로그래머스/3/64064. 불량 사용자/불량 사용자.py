@@ -1,8 +1,6 @@
-answer = 0
 visit = set()
 def DFS(cnt, target, dic, visited):
     global visit
-    global answer
     
     if(cnt == target):
         visit.add(visited)
@@ -15,10 +13,8 @@ def DFS(cnt, target, dic, visited):
         
     
 def solution(user_id, banned_id):
-    global answer
     global visit
     dic = [[] for _ in range(len(banned_id))]
-    answer = 0
     
     for i, bannedid in enumerate(banned_id):
         for j, userid in enumerate(user_id):
@@ -34,10 +30,6 @@ def solution(user_id, banned_id):
                 flag = False
             if flag == True:
                 dic[i].append(j)
-# 중복되는 경우를 어떻게 곱할지 생각해보자.
-# 한사람은 ABC, 나머지 한사람은 BC를 고른다.
-    print(dic)
+
     DFS(0 , len(banned_id), dic, 0)
-    print(visit)
-    
     return len(visit)
