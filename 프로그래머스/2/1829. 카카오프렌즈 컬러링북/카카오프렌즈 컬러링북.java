@@ -30,12 +30,10 @@ class Solution {
         
         while(!queue.isEmpty()){
             int[] currentRowCol = queue.poll();
-            int currentRow = currentRowCol[0];
-            int currentCol = currentRowCol[1];
             
             for(int i = 0; i < 4; i++){
-                int nextRow = currentRow + dr[i];
-                int nextCol = currentCol + dc[i];
+                int nextRow = currentRowCol[0] + dr[i];
+                int nextCol = currentRowCol[1] + dc[i];
                 if(check(nextRow, nextCol, startColor)){
                     sizeOfCurrentArea += 1;
                     visited[nextRow][nextCol] = true;
