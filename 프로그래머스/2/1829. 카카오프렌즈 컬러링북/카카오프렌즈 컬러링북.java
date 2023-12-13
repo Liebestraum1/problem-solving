@@ -1,6 +1,5 @@
 import java.util.*;
 
-
 class Solution {
     int ROW_SIZE = 0;
     int COL_SIZE = 0;
@@ -8,14 +7,13 @@ class Solution {
     int[][] arr;
     boolean[][] visited;
     
-    
     int[] dr = {1, -1, 0, 0};
     int[] dc = {0, 0, 1, -1};
     
-    
-    
     public boolean check(int row, int col, int startColor){
-        if(row >= ROW_SIZE || row < 0 || col >= COL_SIZE || col < 0 || visited[row][col] || arr[row][col] != startColor || arr[row][col] == 0)
+        if(row >= ROW_SIZE || row < 0 || col >= COL_SIZE || col < 0)
+            return false;
+        if(visited[row][col] || arr[row][col] != startColor || arr[row][col] == 0)
             return false;
         return true;
     }
@@ -49,7 +47,6 @@ class Solution {
         return sizeOfCurrentArea;
     }
     
-    // m = 행, n = 열
     public int[] solution(int m, int n, int[][] picture) {
         ROW_SIZE = m;
         COL_SIZE = n;
@@ -59,9 +56,7 @@ class Solution {
         
         int numberOfArea = 0;
         int maxSizeOfOneArea = 0;
-        
-        
-        // 구현
+
         for(int r = 0; r < ROW_SIZE; r++){
             for(int c = 0; c < COL_SIZE; c++){
                 if(check(r, c, arr[r][c])){
@@ -74,8 +69,6 @@ class Solution {
                 }
             }
         }
-        
-        //
 
         int[] answer = new int[2];
         answer[0] = numberOfArea;
