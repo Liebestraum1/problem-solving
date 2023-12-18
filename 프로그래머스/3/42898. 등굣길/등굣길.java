@@ -38,7 +38,7 @@ class Solution {
                 } else if(DP[row - 1][col] != -1 && DP[row][col - 1] == -1){
                     DP[row][col] = DP[row - 1][col];
                 } else {
-                    DP[row][col] = (DP[row - 1][col] % divider + DP[row][col - 1] % divider) % divider;
+                    DP[row][col] = (DP[row - 1][col] + DP[row][col - 1]) % divider;
                 }
             }
         }
