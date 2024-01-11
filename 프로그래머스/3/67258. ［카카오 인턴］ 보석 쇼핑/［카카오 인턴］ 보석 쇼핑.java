@@ -2,43 +2,32 @@ import java.util.*;
 
 class Solution {
     public int[] solution(String[] gems) {
+        HashSet<String> set = new HashSet<>(Arrays.asList(gems));
         HashMap<String, Integer> map = new HashMap<>();
         
-        for(String gem : gems){
-            if(!map.containsKey(gem)){
-                map.put(gem, 0);
-            }
-        }
-        
-        int targetSize = map.size();
-        map.clear();
-        
+        final int TARGET_SIZE = set.size();
+        int[] answer = {1, gems.length};
         int left = 0;
-        int right = 0;
-        int[] answer = {0, Integer.MAX_VALUE};
         
-        map.put(gems[right], 1);
-        
-        while(left != gems.length - 1 || right != gems.length - 1){
-            if(map.size() < targetSize && right < gems.length - 1) {
-                right += 1;
-                if(!map.containsKey(gems[right])){
-                    map.put(gems[right], 1);
-                } else {
-                    map.put(gems[right], map.get(gems[right]) + 1);
-                }
-            } else {
-                if(map.size() == targetSize && answer[1] - answer[0] > right - left){
+        for(int right = 0; right < gems.length; right++){
+            String rightKey = gems[right];
+            map.put(rightKey, map.getOrDefault(rightKey, 0) + 1);
+            
+            while(map.size() == TARGET_SIZE){
+                String leftKey = gems[left];
+                int leftGemCount = map.get(leftKey);
+                
+                if(answer[1] - answer[0] > right - left){
                     answer[0] = left + 1;
                     answer[1] = right + 1;
                 }
                 
-                map.put(gems[left], map.get(gems[left]) - 1);
-                if(map.get(gems[left]) == 0){
-                    map.remove(gems[left]);
+                if(leftGemCount > 1){
+                    map.put(leftKey, leftGemCount - 1);
+                } else {
+                    map.remove(leftKey);
                 }
-                
-                left += 1;           
+                left += 1;
             }
         }
         
