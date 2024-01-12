@@ -1,58 +1,76 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.lang.Character.Subset;
 import java.util.StringTokenizer;
+class UnionFind {
+    int[] subsets;
+
+    void init(int n){
+        subsets = new int[n + 1];
+        for(int i = 0; i < n + 1; i++){
+            subsets[i] = -1;
+        }
+    }
+
+    int find(int i){
+        if(subsets[i] < 0){
+            return i;
+        }
+        return subsets[i] = find(subsets[i]);
+    }
+
+    void union(int x, int y){
+        int xRoot = find(x);
+        int yRoot = find(y);
+        
+        if(xRoot == yRoot){
+            return;
+        }
+
+        if(subsets[xRoot] < subsets[yRoot]){
+            subsets[xRoot] += subsets[yRoot];
+            subsets[yRoot] = xRoot;
+        } else {
+            subsets[yRoot] += subsets[xRoot];
+            subsets[xRoot] = yRoot;
+        }
+    }
+
+}
 
 public class Main {
-	static int[] set;
-	
-	public static void make(int num) {
-		set = new int[num + 1];
-		for (int i = 0; i < num + 1; i++)
-			set[i] = i;
-	}
+    public static void main(String[] args) throws IOException {
+        StringTokenizer st;
+        StringBuilder sb = new StringBuilder();
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-	public static int find(int element) {
-		if (set[element] == element)
-			return element;
-		return set[element] = find(set[element]);
-	}
+        st = new StringTokenizer(br.readLine());
 
-	public static boolean union(int a, int b) {
-		int aRoot = find(a);
-		int bRoot = find(b);
-		
-		if (aRoot == bRoot)
-			return false;
-		set[bRoot] = aRoot;
-		return true;
-	}
+        int N = Integer.parseInt(st.nextToken());
+        int M = Integer.parseInt(st.nextToken());
 
-	public static void main(String[] args) throws IOException {
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		StringTokenizer st = new StringTokenizer(br.readLine());
-		StringBuilder sb = new StringBuilder();
+        UnionFind subset = new UnionFind();
 
-		int N = Integer.parseInt(st.nextToken());
-		int M = Integer.parseInt(st.nextToken());
+        subset.init(N);
 
-		make(N);
-		
-		for(int i = 0; i < M; i++) {
-			st = new StringTokenizer(br.readLine());
-			int command = Integer.parseInt(st.nextToken());
-			int a = Integer.parseInt(st.nextToken());
-			int b = Integer.parseInt(st.nextToken());
-			
-			if(command == 0) 
-				union(a, b);
-			if(command == 1) { 
-				if(find(a) == find(b))
-					sb.append("YES\n");
-				else
-					sb.append("NO\n");
-			}
-		}
-		System.out.println(sb);
-	}
+        for (int i = 0; i < M; i++){
+            st = new StringTokenizer(br.readLine());
+
+            int type = Integer.parseInt(st.nextToken());
+            int a = Integer.parseInt(st.nextToken());
+            int b = Integer.parseInt(st.nextToken());
+
+            if(type == 0){
+                subset.union(a, b);
+            } else {
+                if(subset.find(a) == subset.find(b)){
+                    sb.append("YES\n");
+                } else {
+                    sb.append("NO\n");
+                }
+            }
+        }
+        System.out.print(sb);
+    }
 }
