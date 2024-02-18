@@ -1,38 +1,38 @@
 import java.util.*;
+class Solution
+{
+    public int solution(String s)
+    {
+       int left = 0, right = 0;
+        int result = 1;
 
-class Solution{
-    public boolean palindrome(List<Character> str){
-        for(int i = 0; i < str.size() / 2 + 1; i++){
-            if(str.get(i) != str.get(str.size() - i - 1)){
-                return false;
-            }
-        }
-        return true;
-    }
-    
-    public int solution(String s){
-        int answer = 0;
-        
-        List<Character> str = new ArrayList<>();
-        
-        for(int i = 0; i < s.length(); i++){
-            if(s.length() - i < answer){
-                continue;
-            }
-            
-            str.clear();
-            for(int j = i; j < s.length(); j++){    
-                str.add(s.charAt(j));
-                
-                if((j - i) < answer){
-                    continue;
+        if(s.length() != 1) {
+            for (int center = 1; center < s.length() - 1; center++) {
+                left = center - 1;
+                right = center + 1;
+                while (left >= 0 && right <= s.length() - 1) {
+                    if (s.charAt(left) != s.charAt(right))
+                        break;
+
+                    result = right - left + 1 > result ? right - left + 1 : result;
+                    left--;
+                    right++;
                 }
-                
-                if(palindrome(str)){
-                    answer = j - i + 1;
+            }
+
+            for (int center = 0; center <= s.length() - 2; center++) {
+                left = center;
+                right = center + 1;
+                while (left >= 0 && right <= s.length() - 1) {
+                    if (s.charAt(left) != s.charAt(right))
+                        break;
+                    result = right - left + 1 > result ? right - left + 1 : result;
+                    left--;
+                    right++;
                 }
             }
         }
-        return answer;
+
+        return result;
     }
 }
