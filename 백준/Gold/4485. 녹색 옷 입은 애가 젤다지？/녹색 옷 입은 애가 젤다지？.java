@@ -81,15 +81,10 @@ public class Main {
     }
 
     public static void main(String[] args) throws IOException {
+        int size;
         int number = 1;
 
-        while(true){
-            int size = Integer.parseInt(br.readLine());
-
-            if(size == 0){
-                break;
-            }
-
+        while((size = Integer.parseInt(br.readLine())) != 0){
             int[][] board = initBoard(size);
             int[][] dists = initDists(size);
             int answer = find(board, dists, size);
