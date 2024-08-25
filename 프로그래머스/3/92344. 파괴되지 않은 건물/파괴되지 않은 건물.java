@@ -8,17 +8,13 @@ class Solution {
         int answer = 0;
         
         for(int[] cast : skill){
-            int type = cast[0] == 1 ? -1 : 1;
-            int startRow = cast[1];
-            int startCol = cast[2];
-            int endRow = cast[3];
-            int endCol = cast[4];
-            int degree = cast[5] * type;
+            int sr = cast[1], sc = cast[2], er = cast[3], ec = cast[4];
+            int d = cast[0] == 1 ? -cast[5] : cast[5];
             
-            sum[startRow][startCol] += degree;
-            sum[endRow + 1][endCol + 1] += degree;
-            sum[startRow][endCol + 1] -= degree;
-            sum[endRow + 1][startCol] -= degree;
+            sum[sr][sc] += d;
+            sum[er + 1][ec + 1] += d;
+            sum[sr][ec + 1] -= d;
+            sum[er + 1][sc] -= d;
         }
         
         for(int r = 0; r < N + 1; r++){
